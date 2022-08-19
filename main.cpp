@@ -2,7 +2,7 @@
 #include <string>
 using namespace std;
 
-string arena[5][5]{  // Defining the map
+string map[5][5]{  // Defining the map
     {"* ","* ","* ","* ","* ",},
     {"* ","* ","* ","* ","* ",},
     {"* ","* ","* ","* ","* ",},
@@ -10,16 +10,19 @@ string arena[5][5]{  // Defining the map
     {"* ","* ","* ","* ","* ",}
 };
 
-int c {0}; // no of tries
-int a {0}; // no of hp ships have 
+int hits {0}; // no of tri
+int Tries {0}; // no of hp ships have 
+
 int x {};
 int y {};
-int ex {};
-int ey {};
-int shots {};
-int hits {};
 
-bool battleship[5][5]{
+int UserX {};
+int UserY {};
+
+int shots {};
+
+
+bool placement[5][5]{
     {0 , 1 , 0 , 0 , 0},    // 9 '1's
     {0 , 1 , 0 , 0 , 0},    // -- , --- , L--
     {1 , 1 , 0 , 0 , 1},
@@ -30,7 +33,7 @@ bool battleship[5][5]{
 int display(){
     for (int i = 0; i < 5; i++){
         for(int j = 0; j < 5; j++){
-            cout << arena[i][j] ;
+            cout << map[i][j] ;
             if (i==0 && j==4){
                 cout << "\n" ;
             }else if(i==1 && j==4){
@@ -49,40 +52,39 @@ int display(){
 
 int nuke(){
     cout << "Coords to nuke: \nx coords:" ;
-    cin >> ex ;
+    cin >> UserX ;
     cout << "y coords:";
-    cin >> ey ;
+    cin >> UserY ;
 
-    if ((ex > 5 || ex < 1) || (ey > 5 || ey < 1))
+    if ((UserX > 5 || UserX < 1) || (UserY > 5 || UserY < 1))
     {
         cout << "Coords invalid" ;
         exit(0) ;
     }else{
-        x = 5-ey ;
-        y = ex-1 ;
+        x = 5-UserY ;
+        y = UserX-1 ;
     }
 
-    if (arena[x][y] == "x ")
+    if (map[x][y] == "x ")
     {
         cout << "Cant nuke same spot again \n" ;
-        a--;
-    }else if (arena[x][y] == "o ")
+        Tries--;
+    }else if (map[x][y] == "o ")
     {
         cout << "Cant nuke same spot again \n" ;
-        a--;
+        Tries--;
     }else{
         shots++;
         cout << "\n" ;
     
-        if (battleship[x][y] == true )
+        if (placement[x][y] == true )
         {
-            battleship[x][y] = false;
-            arena[x][y] = "x ";
+            placement[x][y] = false;
+            map[x][y] = "x ";
             hits++;
-            c++;
             display();
         }else{
-            arena[x][y] = "o " ;
+            map[x][y] = "o " ;
             display();
         }
     }
@@ -117,16 +119,16 @@ int main(){
     cout << "Battleship Arena \n \n" ; 
 
     display();
-    while (a < 15)
+    while (Tries < 15)
     {
         nuke();
-        a++ ;
-        if (c==9)
+        Tries++ ;
+        if (hits==9)
         {
             cout << "\n" ;
             cout << "Number one victory royale, yea fortnite about to get down";
             exit(0);
-        }else if (a==15)
+        }else if (Tries==15)
         {
             cout << "\n" ;
             cout << "NOOB \nGo play solitaire" ;
