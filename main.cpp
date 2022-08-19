@@ -19,7 +19,7 @@ int y {};
 int UserX {};
 int UserY {};
 
-int shots {};
+
 
 
 bool placement[5][5]{
@@ -74,7 +74,7 @@ int nuke(){
         cout << "Cant nuke same spot again \n" ;
         Tries--;
     }else{
-        shots++;
+        
         cout << "\n" ;
     
         if (placement[x][y] == true )
@@ -89,7 +89,7 @@ int nuke(){
         }
     }
     
-    cout << "No of shots:" << shots << endl;
+    cout << "No of shots:" << Tries << endl;
     cout << "Hits:" << hits ;
     cout << "\n" ;
 
@@ -119,7 +119,7 @@ int main(){
     cout << "Battleship Arena \n \n" ; 
 
     display();
-    while (Tries < 15)
+    while (Tries < 17)
     {
         nuke();
         Tries++ ;
@@ -128,7 +128,7 @@ int main(){
             cout << "\n" ;
             cout << "Number one victory royale, yea fortnite about to get down";
             exit(0);
-        }else if (Tries==15)
+        }else if (Tries==17)
         {
             cout << "\n" ;
             cout << "NOOB \nGo play solitaire" ;
